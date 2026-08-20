@@ -1,11 +1,17 @@
 import './App.css'
 import videoEspacio from './assets/videos/VideoEspacio.mp4'
+import logoVortex from './assets/iconos/LogoVortex.png'
+import sistemaSolarIcono from './assets/iconos/Sistema_Solar_Icono.png'
+import universoIcono from './assets/iconos/Universo_Icono.png'
+import crearPlanetaIcono from './assets/iconos/Crear_Planeta_Icono.png'
 
 function App() {
   return (
     <div className="app">
       <header className="navbar">
-        <a href="#" className="logo"><span>✦</span> VORTEX</a>
+        <a href="#" className="logo">
+          <img src={logoVortex} alt="Vortex" />
+        </a>
 
         <nav className="nav-links">
           <a href="#" className="active">Inicio</a>
@@ -22,9 +28,9 @@ function App() {
       </header>
 
       <main>
-        <section className="hero">
+        <section className="seccion-principal">
           <video
-            className="hero-video"
+            className="seccion-principal-video"
             src={videoEspacio}
             autoPlay
             muted
@@ -32,21 +38,21 @@ function App() {
             playsInline
           />
 
-          <div className="hero-overlay"></div>
+          <div className="seccion-principal-overlay"></div>
 
-          <div className="hero-content">
-            <span className="eyebrow">EXPLORA · DESCUBRE · CREA</span>
+          <div className="seccion-principal-contenido">
+            <span className="seccion-principal-etiqueta">EXPLORA · DESCUBRE · CREA</span>
 
             <h1>
-              <span className="hero-title-main">El universo</span>
-              <span className="hero-title-accent">está esperando.</span>
+              <span className="seccion-principal-titulo">El universo</span>
+              <span className="seccion-principal-acento">está esperando</span>
             </h1>
 
             <p>
               Descubrí los secretos del cosmos, explorá nuestro Sistema Solar y creá tus propios mundos.
             </p>
 
-            <div className="hero-buttons">
+            <div className="seccion-principal-botones">
               <a href="#" className="primary-button">
                 Explorar el universo <span>→</span>
               </a>
@@ -71,7 +77,7 @@ function App() {
         <section className="features">
           <article className="feature-card">
             <span className="feature-number">01</span>
-            <span className="feature-icon">◉</span>
+            <img className="feature-icon" src={sistemaSolarIcono} alt="Sistema Solar" />
             <h3>Sistema Solar</h3>
             <p>Conocé nuestros planetas y experimentá con sus propiedades físicas.</p>
             <a href="#">Explorar →</a>
@@ -79,7 +85,7 @@ function App() {
 
           <article className="feature-card">
             <span className="feature-number">02</span>
-            <span className="feature-icon">✦</span>
+            <img className="feature-icon" src={universoIcono} alt="Universo" />
             <h3>Explorá el universo</h3>
             <p>Descubrí nebulosas, agujeros negros, galaxias y otros fenómenos cósmicos.</p>
             <a href="#">Descubrir →</a>
@@ -87,7 +93,7 @@ function App() {
 
           <article className="feature-card">
             <span className="feature-number">03</span>
-            <span className="feature-icon">◌</span>
+            <img className="feature-icon" src={crearPlanetaIcono} alt="Crear planeta" />
             <h3>Creá tu planeta</h3>
             <p>Diseñá tu propio mundo y compartilo con la comunidad de Vortex.</p>
             <a href="#">Crear →</a>
@@ -96,9 +102,13 @@ function App() {
       </main>
 
       <footer className="footer">
-        <div className="footer-logo"><span>✦</span> VORTEX</div>
-        <p>Explorando el universo, una idea a la vez.</p>
-        <span className="footer-copy">© 2026 Vortex</span>
+        <div className="footer-logo">
+          <img src={logoVortex} alt="Vortex" />
+        </div>
+
+        <p>Explorando el universo</p>
+
+        <span className="footer-copy">©2026 Vortex</span>
       </footer>
     </div>
   )
