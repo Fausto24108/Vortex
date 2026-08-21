@@ -1,0 +1,223 @@
+.pagina-sistema-solar {
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(125,98,220,.12),
+      transparent 34%
+    ),
+    #05060b;
+  color: #fff;
+}
+
+.sistema-hero {
+  position: relative;
+  min-height: 410px;
+  display: flex;
+  align-items: flex-end;
+  padding: 95px 8% 64px;
+  overflow: hidden;
+}
+
+.sistema-hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -80px;
+  height: 180px;
+  background: linear-gradient(
+    to bottom,
+    rgba(5,6,11,0),
+    #05060b
+  );
+  pointer-events: none;
+}
+
+.sistema-hero-glow {
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  top: -390px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: rgba(132,104,241,.15);
+  filter: blur(100px);
+}
+
+.sistema-hero-contenido {
+  position: relative;
+  z-index: 1;
+  max-width: 980px;
+}
+
+.sistema-etiqueta,
+.mini-etiqueta {
+  display: inline-block;
+  color: #a99adb;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 4px;
+}
+
+.sistema-hero h1 {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 18px 0 24px;
+  font-size: clamp(58px, 8vw, 112px);
+  line-height: .91;
+  letter-spacing: -6px;
+}
+
+.sistema-hero h1 span {
+  color: #bcaeff;
+  text-shadow: 0 12px 55px rgba(123,90,240,.28);
+}
+
+.sistema-hero p {
+  max-width: 690px;
+  color: #989aa6;
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.sistema-interactivo {
+  position: relative;
+  width: 100%;
+  margin-top: -30px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.sistema-informacion {
+  display: grid;
+  grid-template-columns: minmax(300px, .8fr) minmax(0, 1.2fr);
+  gap: 100px;
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 130px 30px 120px;
+  border-top: 1px solid rgba(255,255,255,.055);
+}
+
+.informacion-introduccion h2,
+.curiosidades-titulo h2 {
+  max-width: 610px;
+  margin-top: 18px;
+  font-size: clamp(38px, 4.5vw, 62px);
+  line-height: 1;
+  letter-spacing: -3px;
+}
+
+.informacion-introduccion h2 span,
+.curiosidades-titulo h2 span {
+  color: #bcaeff;
+}
+
+.informacion-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 27px;
+}
+
+.informacion-texto p {
+  color: #8f919d;
+  font-size: 16px;
+  line-height: 1.95;
+}
+
+.curiosidades {
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 80px 30px 120px;
+  border-top: 1px solid rgba(255,255,255,.055);
+}
+
+.curiosidades-titulo {
+  margin-bottom: 48px;
+}
+
+.curiosidades-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.curiosidad {
+  min-height: 225px;
+  padding: 28px;
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 16px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.04),
+      rgba(255,255,255,.012)
+    );
+  transition:
+    transform .3s ease,
+    border-color .3s ease,
+    background .3s ease;
+}
+
+.curiosidad:hover {
+  transform: translateY(-5px);
+  border-color: rgba(181,161,249,.25);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(174,151,245,.075),
+      rgba(255,255,255,.018)
+    );
+}
+
+.curiosidad h3 {
+  max-width: 290px;
+  margin-bottom: 16px;
+  font-size: 21px;
+  line-height: 1.15;
+}
+
+.curiosidad p {
+  color: #828490;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+@media (max-width: 1000px) {
+  .sistema-informacion {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  .curiosidades-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .sistema-hero {
+    min-height: 380px;
+    padding: 80px 7% 60px;
+  }
+
+  .sistema-hero h1 {
+    font-size: clamp(50px, 15vw, 76px);
+    letter-spacing: -4px;
+  }
+
+  .sistema-interactivo {
+    margin-top: -10px;
+  }
+
+  .sistema-informacion,
+  .curiosidades {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .curiosidades-grid {
+    grid-template-columns: 1fr;
+  }
+}
