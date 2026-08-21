@@ -94,31 +94,62 @@ const planetas = [
 
 const DISTANCIA_MAXIMA = 560
 const MARGEN = 40
+const RADIO_SOL = 48
 
 function crearEstrellas() {
-  return Array.from({ length: 600 }, () => ({
-    x: (Math.random() - 0.5) * 5200,
-    y: (Math.random() - 0.5) * 5200,
-    radio: Math.random() * 1.5 + 0.2,
-    brillo: Math.random() * Math.PI * 2,
-    velocidadBrillo: Math.random() * 0.002 + 0.001
-  }))
+  return Array.from(
+    { length: 600 },
+    () => ({
+      x:
+        (Math.random() - 0.5) *
+        5200,
+
+      y:
+        (Math.random() - 0.5) *
+        5200,
+
+      radio:
+        Math.random() * 1.5 + 0.2,
+
+      brillo:
+        Math.random() *
+        Math.PI *
+        2,
+
+      velocidadBrillo:
+        Math.random() *
+          0.002 +
+        0.001
+    })
+  )
 }
 
 function Sistema_Solar_Orbita() {
-  const canvasRef = useRef(null)
-  const contenedorRef = useRef(null)
-  const navigate = useNavigate()
+  const canvasRef =
+    useRef(null)
+
+  const contenedorRef =
+    useRef(null)
+
+  const navigate =
+    useNavigate()
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    const contenedor = contenedorRef.current
+    const canvas =
+      canvasRef.current
 
-    if (!canvas || !contenedor) {
+    const contenedor =
+      contenedorRef.current
+
+    if (
+      !canvas ||
+      !contenedor
+    ) {
       return
     }
 
-    const ctx = canvas.getContext('2d')
+    const ctx =
+      canvas.getContext('2d')
 
     let ancho = 0
     let alto = 0
@@ -131,36 +162,63 @@ function Sistema_Solar_Orbita() {
     let camY = 0
 
     let arrastrando = false
+
     let ultimoMouseX = 0
     let ultimoMouseY = 0
 
     let mouseX = 0
     let mouseY = 0
 
-    let planetaHovered = null
+    let planetaHovered =
+      null
 
-    const estrellas = crearEstrellas()
+    const estrellas =
+      crearEstrellas()
 
-    planetas.forEach(planeta => {
-      planeta.angulo = Math.random() * Math.PI * 2
-    })
+    planetas.forEach(
+      planeta => {
+        planeta.angulo =
+          Math.random() *
+          Math.PI *
+          2
+      }
+    )
 
     function ajustarCanvas() {
-      const rect = contenedor.getBoundingClientRect()
-      const pixelRatio = window.devicePixelRatio || 1
+      const rect =
+        contenedor.getBoundingClientRect()
+
+      const pixelRatio =
+        window.devicePixelRatio ||
+        1
 
       ancho = rect.width
       alto = rect.height
 
-      if (ancho <= 0 || alto <= 0) {
+      if (
+        ancho <= 0 ||
+        alto <= 0
+      ) {
         return
       }
 
-      canvas.width = Math.floor(ancho * pixelRatio)
-      canvas.height = Math.floor(alto * pixelRatio)
+      canvas.width =
+        Math.floor(
+          ancho *
+            pixelRatio
+        )
 
-      canvas.style.width = `${ancho}px`
-      canvas.style.height = `${alto}px`
+      canvas.height =
+        Math.floor(
+          alto *
+            pixelRatio
+        )
+
+      canvas.style.width =
+        `${ancho}px`
+
+      canvas.style.height =
+        `${alto}px`
 
       ctx.setTransform(
         pixelRatio,
@@ -172,35 +230,84 @@ function Sistema_Solar_Orbita() {
       )
 
       const espacioHorizontal =
-        (ancho - MARGEN * 2) /
-        (DISTANCIA_MAXIMA * 2)
+        (
+          ancho -
+          MARGEN * 2
+        ) /
+        (
+          DISTANCIA_MAXIMA *
+          2
+        )
 
       const espacioVertical =
-        (alto - MARGEN * 2) /
-        (DISTANCIA_MAXIMA * 2)
+        (
+          alto -
+          MARGEN * 2
+        ) /
+        (
+          DISTANCIA_MAXIMA *
+          2
+        )
 
-      escala = Math.min(
-        espacioHorizontal,
-        espacioVertical
-      )
+      escala =
+        Math.min(
+          espacioHorizontal,
+          espacioVertical
+        )
     }
 
-    function pantallaAMundo(x, y) {
+    function pantallaAMundo(
+      x,
+      y
+    ) {
       return {
-        x: (x - ancho / 2) / escala - camX,
-        y: (y - alto / 2) / escala - camY
+        x:
+          (
+            x -
+            ancho / 2
+          ) /
+            escala -
+          camX,
+
+        y:
+          (
+            y -
+            alto / 2
+          ) /
+            escala -
+          camY
       }
     }
 
-    function mundoAPantalla(x, y) {
+    function mundoAPantalla(
+      x,
+      y
+    ) {
       return {
-        x: ancho / 2 + (x + camX) * escala,
-        y: alto / 2 + (y + camY) * escala
+        x:
+          ancho / 2 +
+          (
+            x +
+            camX
+          ) *
+            escala,
+
+        y:
+          alto / 2 +
+          (
+            y +
+            camY
+          ) *
+            escala
       }
     }
 
-    function dibujarEstrellas(tiempo) {
-      for (const estrella of estrellas) {
+    function dibujarEstrellas(
+      tiempo
+    ) {
+      for (
+        const estrella of estrellas
+      ) {
         const brillo =
           0.22 +
           0.78 *
@@ -231,7 +338,9 @@ function Sistema_Solar_Orbita() {
       }
     }
 
-    function dibujarOrbita(planeta) {
+    function dibujarOrbita(
+      planeta
+    ) {
       ctx.beginPath()
 
       ctx.ellipse(
@@ -239,7 +348,10 @@ function Sistema_Solar_Orbita() {
         0,
         planeta.distancia,
         planeta.distancia *
-          (1 - planeta.inclinacion),
+          (
+            1 -
+            planeta.inclinacion
+          ),
         0,
         0,
         Math.PI * 2
@@ -254,8 +366,11 @@ function Sistema_Solar_Orbita() {
       ctx.stroke()
     }
 
-    function dibujarSol(tiempo) {
-      const radio = 48
+    function dibujarSol(
+      tiempo
+    ) {
+      const radio =
+        RADIO_SOL
 
       const resplandor =
         ctx.createRadialGradient(
@@ -292,7 +407,9 @@ function Sistema_Solar_Orbita() {
         Math.PI * 2
       )
 
-      ctx.fillStyle = resplandor
+      ctx.fillStyle =
+        resplandor
+
       ctx.fill()
 
       const nucleo =
@@ -330,33 +447,58 @@ function Sistema_Solar_Orbita() {
         Math.PI * 2
       )
 
-      ctx.fillStyle = nucleo
+      ctx.fillStyle =
+        nucleo
+
       ctx.fill()
 
-      ctx.globalAlpha = 0.5
+      ctx.globalAlpha =
+        0.5
 
-      for (let i = 0; i < 7; i += 1) {
+      for (
+        let i = 0;
+        i < 7;
+        i += 1
+      ) {
         const angulo =
-          (i / 7) *
+          (
+            i / 7
+          ) *
             Math.PI *
             2 +
-          tiempo * 0.00015
+          tiempo *
+            0.00015
 
         const distancia =
-          radio * 0.55 +
+          radio *
+            0.55 +
           Math.sin(
-            tiempo * 0.002 + i
-          ) * 5
+            tiempo *
+              0.002 +
+            i
+          ) *
+            5
 
         ctx.beginPath()
 
-        ctx.fillStyle = '#ffe69b'
+        ctx.fillStyle =
+          '#ffe69b'
 
         ctx.arc(
-          Math.cos(angulo) * distancia,
-          Math.sin(angulo) * distancia,
+          Math.cos(
+            angulo
+          ) *
+            distancia,
+
+          Math.sin(
+            angulo
+          ) *
+            distancia,
+
           radio * 0.16,
+
           0,
+
           Math.PI * 2
         )
 
@@ -374,7 +516,11 @@ function Sistema_Solar_Orbita() {
       tiempo
     ) {
       ctx.save()
-      ctx.translate(x, y)
+
+      ctx.translate(
+        x,
+        y
+      )
 
       const gradiente =
         ctx.createRadialGradient(
@@ -411,22 +557,33 @@ function Sistema_Solar_Orbita() {
         Math.PI * 2
       )
 
-      ctx.fillStyle = gradiente
+      ctx.fillStyle =
+        gradiente
+
       ctx.fill()
 
-      if (planeta.bandas) {
+      if (
+        planeta.bandas
+      ) {
         ctx.save()
+
         ctx.clip()
 
         for (
-          let i = -radio;
-          i < radio;
-          i += radio / 4
+          let i =
+            -radio;
+          i <
+            radio;
+          i +=
+            radio / 4
         ) {
           ctx.fillStyle =
             `rgba(255,255,255,${
               0.05 +
-              Math.abs(Math.sin(i)) * 0.04
+              Math.abs(
+                Math.sin(i)
+              ) *
+                0.04
             })`
 
           ctx.fillRect(
@@ -441,25 +598,47 @@ function Sistema_Solar_Orbita() {
       }
 
       ctx.save()
-      ctx.clip()
-      ctx.globalAlpha = 0.13
 
-      for (let i = 0; i < 5; i += 1) {
+      ctx.clip()
+      ctx.globalAlpha =
+        0.13
+
+      for (
+        let i = 0;
+        i < 5;
+        i += 1
+      ) {
         const angulo =
-          (i / 5) *
+          (
+            i / 5
+          ) *
             Math.PI *
             2 +
-          tiempo * 0.0001
+          tiempo *
+            0.0001
 
         ctx.beginPath()
 
-        ctx.fillStyle = '#050505'
+        ctx.fillStyle =
+          '#050505'
 
         ctx.arc(
-          Math.cos(angulo) * radio * 0.45,
-          Math.sin(angulo) * radio * 0.28,
+          Math.cos(
+            angulo
+          ) *
+            radio *
+            0.45,
+
+          Math.sin(
+            angulo
+          ) *
+            radio *
+            0.28,
+
           radio * 0.16,
+
           0,
+
           Math.PI * 2
         )
 
@@ -468,11 +647,19 @@ function Sistema_Solar_Orbita() {
 
       ctx.restore()
 
-      if (planeta.anillos) {
+      if (
+        planeta.anillos
+      ) {
         ctx.save()
 
-        ctx.rotate(0.32)
-        ctx.scale(1, 0.35)
+        ctx.rotate(
+          0.32
+        )
+
+        ctx.scale(
+          1,
+          0.35
+        )
 
         ctx.beginPath()
 
@@ -517,7 +704,9 @@ function Sistema_Solar_Orbita() {
     }
 
     function dibujarTooltip() {
-      if (!planetaHovered) {
+      if (
+        !planetaHovered
+      ) {
         return
       }
 
@@ -536,12 +725,15 @@ function Sistema_Solar_Orbita() {
         '600 12px Inter, system-ui, sans-serif'
 
       const anchoTexto =
-        ctx.measureText(texto).width
+        ctx.measureText(
+          texto
+        ).width
 
       const anchoCaja =
         anchoTexto + 22
 
-      const altoCaja = 28
+      const altoCaja =
+        28
 
       const x =
         posicion.x + 14
@@ -579,20 +771,25 @@ function Sistema_Solar_Orbita() {
       ctx.fillText(
         texto,
         x + 11,
-        y + altoCaja / 2
+        y +
+          altoCaja / 2
       )
 
       ctx.restore()
     }
 
-    function dibujar(tiempo) {
+    function dibujar(
+      tiempo
+    ) {
       const deltaTiempo =
         Math.min(
-          tiempo - ultimoTiempo,
+          tiempo -
+            ultimoTiempo,
           50
         )
 
-      ultimoTiempo = tiempo
+      ultimoTiempo =
+        tiempo
 
       if (
         ancho <= 0 ||
@@ -600,7 +797,9 @@ function Sistema_Solar_Orbita() {
         escala <= 0
       ) {
         animationId =
-          requestAnimationFrame(dibujar)
+          requestAnimationFrame(
+            dibujar
+          )
 
         return
       }
@@ -619,7 +818,11 @@ function Sistema_Solar_Orbita() {
           10,
           ancho / 2,
           alto / 2,
-          Math.max(ancho, alto) * 0.75
+          Math.max(
+            ancho,
+            alto
+          ) *
+            0.75
         )
 
       fondo.addColorStop(
@@ -637,7 +840,8 @@ function Sistema_Solar_Orbita() {
         '#020308'
       )
 
-      ctx.fillStyle = fondo
+      ctx.fillStyle =
+        fondo
 
       ctx.fillRect(
         0,
@@ -663,13 +867,21 @@ function Sistema_Solar_Orbita() {
         camY
       )
 
-      dibujarEstrellas(tiempo)
+      dibujarEstrellas(
+        tiempo
+      )
 
-      for (const planeta of planetas) {
-        dibujarOrbita(planeta)
+      for (
+        const planeta of planetas
+      ) {
+        dibujarOrbita(
+          planeta
+        )
       }
 
-      dibujarSol(tiempo)
+      dibujarSol(
+        tiempo
+      )
 
       const mouseMundo =
         pantallaAMundo(
@@ -677,21 +889,50 @@ function Sistema_Solar_Orbita() {
           mouseY
         )
 
-      planetaHovered = null
+      planetaHovered =
+        null
 
-      for (const planeta of planetas) {
+      const distanciaAlSol =
+        Math.hypot(
+          mouseMundo.x,
+          mouseMundo.y
+        )
+
+      if (
+        distanciaAlSol <
+        RADIO_SOL + 12
+      ) {
+        planetaHovered = {
+          nombre: 'Sol',
+          slug: 'sol',
+          x: 0,
+          y: 0,
+          esSol: true
+        }
+      }
+
+      for (
+        const planeta of planetas
+      ) {
         planeta.angulo +=
           planeta.velocidad *
           deltaTiempo
 
         const x =
-          Math.cos(planeta.angulo) *
+          Math.cos(
+            planeta.angulo
+          ) *
           planeta.distancia
 
         const y =
-          Math.sin(planeta.angulo) *
+          Math.sin(
+            planeta.angulo
+          ) *
           planeta.distancia *
-          (1 - planeta.inclinacion)
+          (
+            1 -
+            planeta.inclinacion
+          )
 
         dibujarPlaneta(
           planeta,
@@ -701,19 +942,25 @@ function Sistema_Solar_Orbita() {
           tiempo
         )
 
-        if (planeta.luna) {
+        if (
+          planeta.luna
+        ) {
           const anguloLuna =
             tiempo *
             planeta.luna.velocidad
 
           const lunaX =
             x +
-            Math.cos(anguloLuna) *
+            Math.cos(
+              anguloLuna
+            ) *
             planeta.luna.distancia
 
           const lunaY =
             y +
-            Math.sin(anguloLuna) *
+            Math.sin(
+              anguloLuna
+            ) *
             planeta.luna.distancia
 
           ctx.beginPath()
@@ -734,13 +981,16 @@ function Sistema_Solar_Orbita() {
 
         const distanciaMouse =
           Math.hypot(
-            mouseMundo.x - x,
-            mouseMundo.y - y
+            mouseMundo.x -
+              x,
+            mouseMundo.y -
+              y
           )
 
         if (
           distanciaMouse <
-          planeta.radio + 10
+          planeta.radio +
+            10
         ) {
           planetaHovered = {
             ...planeta,
@@ -755,10 +1005,14 @@ function Sistema_Solar_Orbita() {
       dibujarTooltip()
 
       animationId =
-        requestAnimationFrame(dibujar)
+        requestAnimationFrame(
+          dibujar
+        )
     }
 
-    function obtenerMouse(event) {
+    function obtenerMouse(
+      event
+    ) {
       const rect =
         canvas.getBoundingClientRect()
 
@@ -771,8 +1025,11 @@ function Sistema_Solar_Orbita() {
         rect.top
     }
 
-    function mouseDown(event) {
-      arrastrando = true
+    function mouseDown(
+      event
+    ) {
+      arrastrando =
+        true
 
       ultimoMouseX =
         event.clientX
@@ -785,21 +1042,31 @@ function Sistema_Solar_Orbita() {
       )
     }
 
-    function mouseMove(event) {
-      obtenerMouse(event)
+    function mouseMove(
+      event
+    ) {
+      obtenerMouse(
+        event
+      )
 
-      if (!arrastrando) {
+      if (
+        !arrastrando
+      ) {
         return
       }
 
       camX +=
-        (event.clientX -
-          ultimoMouseX) /
+        (
+          event.clientX -
+          ultimoMouseX
+        ) /
         escala
 
       camY +=
-        (event.clientY -
-          ultimoMouseY) /
+        (
+          event.clientY -
+          ultimoMouseY
+        ) /
         escala
 
       ultimoMouseX =
@@ -810,7 +1077,8 @@ function Sistema_Solar_Orbita() {
     }
 
     function mouseUp() {
-      arrastrando = false
+      arrastrando =
+        false
 
       canvas.classList.remove(
         'arrastrando'
@@ -832,9 +1100,11 @@ function Sistema_Solar_Orbita() {
 
     ajustarCanvas()
 
-    requestAnimationFrame(() => {
-      ajustarCanvas()
-    })
+    requestAnimationFrame(
+      () => {
+        ajustarCanvas()
+      }
+    )
 
     window.addEventListener(
       'resize',
@@ -862,7 +1132,9 @@ function Sistema_Solar_Orbita() {
     )
 
     animationId =
-      requestAnimationFrame(dibujar)
+      requestAnimationFrame(
+        dibujar
+      )
 
     return () => {
       cancelAnimationFrame(
@@ -901,7 +1173,9 @@ function Sistema_Solar_Orbita() {
       ref={contenedorRef}
       className="sistema-orbita-contenedor"
     >
-      <canvas ref={canvasRef} />
+      <canvas
+        ref={canvasRef}
+      />
     </div>
   )
 }
