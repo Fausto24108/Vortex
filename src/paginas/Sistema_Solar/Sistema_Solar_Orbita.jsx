@@ -92,6 +92,9 @@ const planetas = [
   }
 ]
 
+const DISTANCIA_MAXIMA = 560
+const MARGEN = 40
+
 function crearEstrellas() {
   return Array.from({ length: 600 }, () => ({
     x: (Math.random() - 0.5) * 5200,
@@ -119,10 +122,11 @@ function Sistema_Solar_Orbita() {
 
     let ancho = 0
     let alto = 0
+    let escala = 1
+
     let animationId
     let ultimoTiempo = 0
 
-    let zoom = 1
     let camX = 0
     let camY = 0
 
@@ -155,6 +159,9 @@ function Sistema_Solar_Orbita() {
       canvas.width = Math.floor(ancho * pixelRatio)
       canvas.height = Math.floor(alto * pixelRatio)
 
+      canvas.style.width = `${ancho}px`
+      canvas.style.height = `${alto}px`
+
       ctx.setTransform(
         pixelRatio,
         0,
@@ -163,26 +170,32 @@ function Sistema_Solar_Orbita() {
         0,
         0
       )
-    }
 
-    function limitarZoom() {
-      zoom = Math.max(
-        0.45,
-        Math.min(1.8, zoom)
+      const espacioHorizontal =
+        (ancho - MARGEN * 2) /
+        (DISTANCIA_MAXIMA * 2)
+
+      const espacioVertical =
+        (alto - MARGEN * 2) /
+        (DISTANCIA_MAXIMA * 2)
+
+      escala = Math.min(
+        espacioHorizontal,
+        espacioVertical
       )
     }
 
     function pantallaAMundo(x, y) {
       return {
-        x: (x - ancho / 2) / zoom - camX,
-        y: (y - alto / 2) / zoom - camY
+        x: (x - ancho / 2) / escala - camX,
+        y: (y - alto / 2) / escala - camY
       }
     }
 
     function mundoAPantalla(x, y) {
       return {
-        x: ancho / 2 + (x + camX) * zoom,
-        y: alto / 2 + (y + camY) * zoom
+        x: ancho / 2 + (x + camX) * escala,
+        y: alto / 2 + (y + camY) * escala
       }
     }
 
@@ -235,7 +248,9 @@ function Sistema_Solar_Orbita() {
       ctx.strokeStyle =
         'rgba(177,169,216,0.16)'
 
-      ctx.lineWidth = 1 / zoom
+      ctx.lineWidth =
+        1 / escala
+
       ctx.stroke()
     }
 
@@ -579,7 +594,11 @@ function Sistema_Solar_Orbita() {
 
       ultimoTiempo = tiempo
 
-      if (ancho <= 0 || alto <= 0) {
+      if (
+        ancho <= 0 ||
+        alto <= 0 ||
+        escala <= 0
+      ) {
         animationId =
           requestAnimationFrame(dibujar)
 
@@ -635,8 +654,8 @@ function Sistema_Solar_Orbita() {
       )
 
       ctx.scale(
-        zoom,
-        zoom
+        escala,
+        escala
       )
 
       ctx.translate(
@@ -721,7 +740,7 @@ function Sistema_Solar_Orbita() {
 
         if (
           distanciaMouse <
-          planeta.radio / zoom + 10
+          planeta.radio + 10
         ) {
           planetaHovered = {
             ...planeta,
@@ -776,12 +795,12 @@ function Sistema_Solar_Orbita() {
       camX +=
         (event.clientX -
           ultimoMouseX) /
-        zoom
+        escala
 
       camY +=
         (event.clientY -
           ultimoMouseY) /
-        zoom
+        escala
 
       ultimoMouseX =
         event.clientX
@@ -796,18 +815,6 @@ function Sistema_Solar_Orbita() {
       canvas.classList.remove(
         'arrastrando'
       )
-    }
-
-    function mouseWheel(event) {
-      event.preventDefault()
-
-      if (event.deltaY > 0) {
-        zoom *= 0.92
-      } else {
-        zoom *= 1.08
-      }
-
-      limitarZoom()
     }
 
     function clickCanvas() {
@@ -850,12 +857,6 @@ function Sistema_Solar_Orbita() {
     )
 
     canvas.addEventListener(
-      'wheel',
-      mouseWheel,
-      { passive: false }
-    )
-
-    canvas.addEventListener(
       'click',
       clickCanvas
     )
@@ -886,11 +887,6 @@ function Sistema_Solar_Orbita() {
       window.removeEventListener(
         'mouseup',
         mouseUp
-      )
-
-      canvas.removeEventListener(
-        'wheel',
-        mouseWheel
       )
 
       canvas.removeEventListener(
