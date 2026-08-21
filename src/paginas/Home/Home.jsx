@@ -1,32 +1,13 @@
 import videoEspacio from '../../assets/videos/VideoEspacio.mp4'
-import logoVortex from '../../assets/iconos/LogoVortex.png'
 import sistemaSolarIcono from '../../assets/iconos/Sistema_Solar_Icono.png'
 import universoIcono from '../../assets/iconos/Universo_Icono.png'
 import crearPlanetaIcono from '../../assets/iconos/Crear_Planeta_Icono.png'
+import logoVortex from '../../assets/iconos/LogoVortex.png'
 import './Home.css'
 
 function Home() {
   return (
     <main>
-      <header className="navbar">
-        <a href="#" className="logo">
-          <img src={logoVortex} alt="Vortex" />
-        </a>
-
-        <nav className="nav-links">
-          <a href="#" className="active">Inicio</a>
-          <a href="#">Sistema Solar</a>
-          <a href="#">Universo</a>
-          <a href="#">Crea tu planeta</a>
-          <a href="#">Comunidad</a>
-        </nav>
-
-        <div className="nav-actions">
-          <a href="#" className="login">Iniciar sesión</a>
-          <a href="#" className="register">Registrarse</a>
-        </div>
-      </header>
-
       <section className="seccion-principal">
         <video
           className="seccion-principal-video"
@@ -52,22 +33,15 @@ function Home() {
           </p>
 
           <div className="seccion-principal-botones">
-            <a href="#" className="primary-button">
-              Explorar el universo <span>→</span>
-            </a>
-
-            <a href="#" className="secondary-button">
-              Crear mi planeta
-            </a>
+            <a href="#" className="primary-button">Explorar el universo <span>→</span></a>
+            <a href="#" className="secondary-button">Crear mi planeta</a>
           </div>
         </div>
       </section>
 
       <section className="intro">
         <span className="section-label">BIENVENIDO A VORTEX</span>
-
         <h2>Mucho más que mirar las estrellas.</h2>
-
         <p>
           Aprendé astronomía de una manera diferente. Interactuá con planetas, experimentá con la gravedad, descubrí fenómenos del universo y construí tus propios mundos.
         </p>
@@ -103,9 +77,7 @@ function Home() {
         <div className="footer-logo">
           <img src={logoVortex} alt="Vortex" />
         </div>
-
         <p>Explorando el universo</p>
-
         <span className="footer-copy">©2026 Vortex</span>
       </footer>
     </main>

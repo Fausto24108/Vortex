@@ -12,7 +12,32 @@
   backdrop-filter: blur(18px);
 }
 
+.logo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo::before {
+  content: "";
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(166,137,255,.35) 0%,
+    rgba(166,137,255,.12) 35%,
+    transparent 70%
+  );
+  filter: blur(8px);
+  z-index: -1;
+}
+
 .logo img {
+  position: relative;
+  z-index: 1;
   display: block;
   width: 85px;
   height: auto;
@@ -31,19 +56,8 @@
   transition: color .25s ease;
 }
 
-.nav-links a:hover,
-.nav-links a.active {
+.nav-links a:hover {
   color: #fff;
-}
-
-.nav-links a.active::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -29px;
-  height: 2px;
-  background: #b69cff;
 }
 
 .nav-actions {
@@ -79,27 +93,48 @@
 }
 
 .perfil-boton {
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   padding: 0;
   border: 1px solid rgba(255,255,255,.15);
   border-radius: 50%;
-  background: rgba(255,255,255,.08);
-  color: #999;
+  background: rgba(255,255,255,.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  transition: background .25s ease, border-color .25s ease;
+}
+
+.perfil-boton {
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 50%;
+  background: rgba(255,255,255,.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  transition: background .25s ease, border-color .25s ease;
 }
 
 .perfil-icono {
-  font-size: 24px;
-  line-height: 1;
+  width: 130%;
+  height: 130%;
+  display: block;
+  object-fit: cover;
+  opacity: 1;
 }
 
 .perfil-menu {
   position: absolute;
-  top: 50px;
+  top: 52px;
   right: 0;
-  min-width: 170px;
-  padding: 12px;
+  min-width: 180px;
+  padding: 10px;
   border: 1px solid rgba(255,255,255,.1);
   border-radius: 10px;
   background: rgba(10,11,18,.95);
@@ -108,12 +143,15 @@
 
 .perfil-nombre {
   display: block;
-  padding: 8px;
+  padding: 9px;
   margin-bottom: 4px;
   color: #fff;
+  font-size: 13px;
 }
 
+.perfil-opcion,
 .perfil-menu button {
+  display: block;
   width: 100%;
   padding: 9px;
   border: 0;
@@ -121,9 +159,11 @@
   background: transparent;
   color: #aaa;
   text-align: left;
+  font-size: 13px;
   cursor: pointer;
 }
 
+.perfil-opcion:hover,
 .perfil-menu button:hover {
   background: rgba(255,255,255,.07);
   color: #fff;

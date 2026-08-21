@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useAuth } from '../../contexto/AuthContext'
+import { useAuth } from '../contexto/AuthContext'
+import logoVortex from '../assets/iconos/LogoVortex.png'
+import perfilIcono from '../assets/iconos/Perfil.png'
 import './Navbar.css'
 
 function Navbar() {
@@ -10,7 +12,7 @@ function Navbar() {
   return (
     <header className="navbar">
       <Link to="/" className="logo">
-        <img src="/src/assets/iconos/LogoVortex.png" alt="Vortex" />
+        <img src={logoVortex} alt="Vortex" />
       </Link>
 
       <nav className="nav-links">
@@ -33,13 +35,20 @@ function Navbar() {
               className="perfil-boton"
               onClick={() => setMenuAbierto(!menuAbierto)}
             >
-              <span className="perfil-icono">◯</span>
+              <img src={perfilIcono} alt="Perfil" className="perfil-icono" />
             </button>
 
             {menuAbierto && (
               <div className="perfil-menu">
                 <span className="perfil-nombre">{usuario.nombre}</span>
-                <button onClick={cerrarSesion}>Cerrar sesión</button>
+
+                <a href="#" className="perfil-opcion">
+                  Perfil
+                </a>
+
+                <button onClick={cerrarSesion}>
+                  Cerrar sesión
+                </button>
               </div>
             )}
           </div>
