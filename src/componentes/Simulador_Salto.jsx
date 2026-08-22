@@ -31,7 +31,11 @@ function capitalizar(slug) {
     : ''
 }
 
-function Simulador_Salto({ gravedad, slug }) {
+function Simulador_Salto({
+  gravedad,
+  slug,
+  fondoPersonalizado
+}) {
   const astronautaRef = useRef(null)
   const frameRef = useRef(null)
 
@@ -39,18 +43,25 @@ function Simulador_Salto({ gravedad, slug }) {
   const velocidadYRef = useRef(0)
   const ultimoTiempoRef = useRef(0)
 
-  const gravedadRef = useRef(Number(gravedad) || 0)
-  const saltandoRef = useRef(false)
+  const gravedadRef =
+    useRef(Number(gravedad) || 0)
 
-  const [altura, setAltura] = useState(0)
+  const saltandoRef =
+    useRef(false)
 
-  const fondo = obtenerAsset(
-    `${capitalizar(slug)}_Fondo`
-  )
+  const [altura, setAltura] =
+    useState(0)
 
-  const astronauta = obtenerAsset(
-    'AstronautaIdle'
-  )
+  const fondo =
+    fondoPersonalizado ||
+    obtenerAsset(
+      `${capitalizar(slug)}_Fondo`
+    )
+
+  const astronauta =
+    obtenerAsset(
+      'AstronautaIdle'
+    )
 
   const VELOCIDAD_INICIAL = 7.5
   const PIXELES_POR_METRO = 42
@@ -63,17 +74,23 @@ function Simulador_Salto({ gravedad, slug }) {
 
   useEffect(() => {
     function saltar(event) {
-      if (event.code !== 'Space') {
+      if (
+        event.code !== 'Space'
+      ) {
         return
       }
 
       event.preventDefault()
 
-      if (saltandoRef.current) {
+      if (
+        saltandoRef.current
+      ) {
         return
       }
 
-      saltandoRef.current = true
+      saltandoRef.current =
+        true
+
       velocidadYRef.current =
         VELOCIDAD_INICIAL
 
@@ -97,39 +114,49 @@ function Simulador_Salto({ gravedad, slug }) {
   useEffect(() => {
     function actualizar(tiempo) {
       const ultimo =
-        ultimoTiempoRef.current || tiempo
+        ultimoTiempoRef.current ||
+        tiempo
 
-      const dt = Math.min(
-        (tiempo - ultimo) / 1000,
-        0.033
-      )
+      const dt =
+        Math.min(
+          (tiempo - ultimo) / 1000,
+          0.033
+        )
 
       ultimoTiempoRef.current =
         tiempo
 
-      if (saltandoRef.current) {
+      if (
+        saltandoRef.current
+      ) {
         velocidadYRef.current -=
           gravedadRef.current * dt
 
         yRef.current +=
           velocidadYRef.current * dt
 
-        if (yRef.current <= 0) {
+        if (
+          yRef.current <= 0
+        ) {
           yRef.current = 0
           velocidadYRef.current = 0
           saltandoRef.current = false
         }
 
-        if (astronautaRef.current) {
+        if (
+          astronautaRef.current
+        ) {
           astronautaRef.current.style.bottom =
             `${
               SUELO +
               yRef.current *
-                PIXELES_POR_METRO
+              PIXELES_POR_METRO
             }px`
         }
 
-        setAltura(yRef.current)
+        setAltura(
+          yRef.current
+        )
       }
 
       frameRef.current =
@@ -154,8 +181,11 @@ function Simulador_Salto({ gravedad, slug }) {
     yRef.current = 0
     velocidadYRef.current = 0
     saltandoRef.current = false
+    ultimoTiempoRef.current = 0
 
-    if (astronautaRef.current) {
+    if (
+      astronautaRef.current
+    ) {
       astronautaRef.current.style.bottom =
         `${SUELO}px`
     }
@@ -197,15 +227,29 @@ function Simulador_Salto({ gravedad, slug }) {
       <div
         className="simulador-escenario"
         style={{
-          backgroundImage: fondo
-            ? `url("${fondo}")`
-            : 'none'
+          backgroundImage:
+            fondo
+              ? `url("${fondo}")`
+              : 'none'
+        }}
+        onClick={() => {
+          if (
+            !saltandoRef.current
+          ) {
+            saltandoRef.current = true
+
+            velocidadYRef.current =
+              VELOCIDAD_INICIAL
+
+            ultimoTiempoRef.current =
+              performance.now()
+          }
         }}
       >
         <div className="simulador-overlay"></div>
 
         <div className="simulador-instruccion">
-          ESPACIO
+          ESPACIO · CLICK
         </div>
 
         <div

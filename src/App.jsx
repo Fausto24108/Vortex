@@ -15,6 +15,9 @@ import Login from './paginas/Login/Login'
 import Registro from './paginas/Registro/Registro'
 import Sistema_Solar from './paginas/Sistema_Solar/Sistema_Solar'
 import Planeta from './paginas/Planetas/Planeta'
+import Planetas_Comunidad from './paginas/Planetas_Comunidad/Planetas_Comunidad'
+import Crear_Planeta from './paginas/Crear_Planeta/Crear_Planeta'
+import Planeta_Custom from './paginas/Planeta_Custom/Planeta_Custom'
 
 function App() {
   return (
@@ -52,6 +55,33 @@ function App() {
             element={
               <RutaProtegida>
                 <Planeta />
+              </RutaProtegida>
+            }
+          />
+
+          <Route
+            path="/planetas-comunidad"
+            element={
+              <RutaProtegida>
+                <Planetas_Comunidad />
+              </RutaProtegida>
+            }
+          />
+
+          <Route
+            path="/crear-planeta"
+            element={
+              <RutaProtegida>
+                <Crear_Planeta />
+              </RutaProtegida>
+            }
+          />
+
+          <Route
+            path="/planetas/:id"
+            element={
+              <RutaProtegida>
+                <Planeta_Custom />
               </RutaProtegida>
             }
           />
