@@ -1,9 +1,20 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import {
+  BrowserRouter,
+  Route,
+  Routes
+} from 'react-router-dom'
+
 import { AuthProvider } from './contexto/AuthContext'
+
 import Navbar from './componentes/Navbar'
+import Footer from './componentes/Footer'
+import RutaProtegida from './componentes/RutaProtegida'
+
 import Home from './paginas/Home/Home'
 import Login from './paginas/Login/Login'
 import Registro from './paginas/Registro/Registro'
+import Sistema_Solar from './paginas/Sistema_Solar/Sistema_Solar'
+import Planeta from './paginas/Planetas/Planeta'
 
 function App() {
   return (
@@ -12,10 +23,41 @@ function App() {
         <Navbar />
 
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/registro" element={<Registro />} />
+          <Route
+            path="/"
+            element={<Home />}
+          />
+
+          <Route
+            path="/login"
+            element={<Login />}
+          />
+
+          <Route
+            path="/registro"
+            element={<Registro />}
+          />
+
+          <Route
+            path="/sistema-solar"
+            element={
+              <RutaProtegida>
+                <Sistema_Solar />
+              </RutaProtegida>
+            }
+          />
+
+          <Route
+            path="/sistema-solar/planeta/:slug"
+            element={
+              <RutaProtegida>
+                <Planeta />
+              </RutaProtegida>
+            }
+          />
         </Routes>
+
+        <Footer />
       </BrowserRouter>
     </AuthProvider>
   )

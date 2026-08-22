@@ -1,0 +1,208 @@
+.simulador-lanzar {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.045),
+      rgba(255,255,255,.012)
+    );
+  box-shadow:
+    0 30px 60px rgba(0,0,0,.25);
+}
+
+.lanzar-escenario {
+  position: relative;
+  height: 340px;
+  overflow: hidden;
+  background-color: #0a0c13;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  touch-action: none;
+  user-select: none;
+}
+
+.lanzar-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to top,
+      rgba(3,4,8,.42),
+      rgba(3,4,8,.04) 70%,
+      rgba(3,4,8,.12)
+    );
+  pointer-events: none;
+}
+
+.lanzar-instruccion {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 5;
+  padding: 7px 10px;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 7px;
+  background: rgba(5,6,11,.48);
+  backdrop-filter: blur(8px);
+  color: rgba(255,255,255,.7);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  pointer-events: none;
+}
+
+.lanzar-astronauta {
+  position: absolute;
+  left: 50px;
+  bottom: 42px;
+  width: 115px;
+  height: 135px;
+  z-index: 3;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.lanzar-astronauta img {
+  display: block;
+  width: 115px;
+  height: 135px;
+  object-fit: contain;
+  user-select: none;
+}
+
+.lanzar-origen {
+  position: absolute;
+  left: 150px;
+  bottom: 72px;
+  width: 60px;
+  height: 60px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  touch-action: none;
+}
+
+.lanzar-origen:active {
+  cursor: grabbing;
+}
+
+.lanzar-objeto {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      #ffffff,
+      #c9c6d7 38%,
+      #787484 100%
+    );
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.4);
+  will-change: transform;
+}
+
+.lanzar-direccion {
+  position: absolute;
+  z-index: 4;
+  height: 3px;
+  transform-origin: left center;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      to right,
+      rgba(217,207,255,.9),
+      rgba(217,207,255,.1)
+    );
+  pointer-events: none;
+}
+
+.lanzar-direccion::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 9px;
+  height: 9px;
+  border-top:
+    2px solid
+    rgba(217,207,255,.9);
+  border-right:
+    2px solid
+    rgba(217,207,255,.9);
+  transform:
+    translateY(-50%)
+    rotate(45deg);
+}
+
+.lanzar-piso {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 43px;
+  border-top:
+    1px solid
+    rgba(255,255,255,.08);
+  background:
+    rgba(4,5,9,.48);
+  backdrop-filter:
+    blur(4px);
+  pointer-events: none;
+}
+
+.lanzar-resultados {
+  grid-template-columns:
+    repeat(3, 1fr)
+    auto;
+}
+
+.lanzar-error,
+.lanzar-cargando {
+  padding: 13px 24px;
+  border-top:
+    1px solid
+    rgba(255,255,255,.06);
+  font-size: 12px;
+}
+
+.lanzar-error {
+  color: #ff9b9b;
+}
+
+.lanzar-cargando {
+  color: #b9afd3;
+}
+
+@media (max-width: 600px) {
+  .lanzar-escenario {
+    height: 300px;
+  }
+
+  .lanzar-astronauta {
+    left: 30px;
+    width: 100px;
+    height: 120px;
+  }
+
+  .lanzar-astronauta img {
+    width: 100px;
+    height: 120px;
+  }
+
+  .lanzar-origen {
+    left: 125px;
+  }
+
+  .lanzar-resultados {
+    grid-template-columns: 1fr 1fr;
+  }
+}

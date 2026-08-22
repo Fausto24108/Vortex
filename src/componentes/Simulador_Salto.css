@@ -1,0 +1,189 @@
+.simulador {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.045),
+      rgba(255,255,255,.012)
+    );
+  box-shadow:
+    0 30px 60px rgba(0,0,0,.25);
+}
+
+.simulador-cabecera {
+  height: 86px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+.simulador-etiqueta {
+  display: block;
+  margin-bottom: 7px;
+  color: #9f91c7;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.simulador-cabecera h3 {
+  margin: 0;
+  font-size: 24px;
+  letter-spacing: -1px;
+}
+
+.simulador-gravedad {
+  padding: 8px 11px;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 999px;
+  background: rgba(255,255,255,.035);
+  color: #aaa3c0;
+  font-size: 11px;
+}
+
+.simulador-escenario {
+  position: relative;
+  height: 340px;
+  overflow: hidden;
+  background-color: #0a0c13;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  user-select: none;
+}
+
+.simulador-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to top,
+      rgba(3,4,8,.36),
+      rgba(3,4,8,.02) 65%,
+      rgba(3,4,8,.12)
+    );
+  pointer-events: none;
+}
+
+.simulador-instruccion {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 5;
+  padding: 7px 10px;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 7px;
+  background: rgba(5,6,11,.48);
+  backdrop-filter: blur(8px);
+  color: rgba(255,255,255,.7);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  pointer-events: none;
+}
+
+.astronauta {
+  position: absolute;
+  left: 50%;
+  bottom: 42px;
+  width: 115px;
+  height: 135px;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.astronauta img {
+  display: block;
+  width: 115px;
+  height: 135px;
+  object-fit: contain;
+  user-select: none;
+}
+
+.simulador-piso {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 43px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  background: rgba(4,5,9,.48);
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+
+.simulador-controles {
+  min-height: 88px;
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  align-items: center;
+  gap: 20px;
+  padding: 0 24px;
+}
+
+.simulador-controles > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.simulador-controles span {
+  color: #686b78;
+  font-size: 10px;
+}
+
+.simulador-controles strong {
+  color: #e8e7ee;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.simulador-controles button {
+  padding: 10px 14px;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 7px;
+  background: rgba(255,255,255,.035);
+  color: #dddce5;
+  cursor: pointer;
+  transition:
+    background .2s ease,
+    border-color .2s ease;
+}
+
+.simulador-controles button:hover {
+  border-color: rgba(190,172,255,.3);
+  background: rgba(190,172,255,.07);
+}
+
+@media (max-width: 600px) {
+  .simulador-escenario {
+    height: 300px;
+  }
+
+  .astronauta {
+    width: 100px;
+    height: 120px;
+  }
+
+  .astronauta img {
+    width: 100px;
+    height: 120px;
+  }
+
+  .simulador-controles {
+    grid-template-columns: 1fr 1fr;
+    padding: 16px 18px;
+  }
+
+  .simulador-controles button {
+    grid-column: 1 / -1;
+  }
+}

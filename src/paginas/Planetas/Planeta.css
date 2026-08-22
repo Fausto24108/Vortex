@@ -1,0 +1,373 @@
+.pagina-planeta {
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(125,98,220,.11),
+      transparent 34%
+    ),
+    #05060b;
+  color: #fff;
+}
+
+.estado-planeta {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.planeta-cargando,
+.planeta-error {
+  width: min(700px, 90%);
+  text-align: center;
+}
+
+.planeta-cargando span,
+.planeta-error span {
+  color: #a99adb;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 4px;
+}
+
+.planeta-cargando h1,
+.planeta-error h1 {
+  margin: 20px 0;
+  font-size: clamp(40px, 7vw, 80px);
+  letter-spacing: -4px;
+}
+
+.planeta-error p {
+  margin-bottom: 28px;
+  color: #858793;
+  line-height: 1.8;
+}
+
+.planeta-volver {
+  display: inline-flex;
+  padding: 13px 18px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 8px;
+  background: rgba(255,255,255,.04);
+  color: #fff;
+}
+
+.planeta-cabecera {
+  position: relative;
+  min-height: 410px;
+  display: flex;
+  align-items: flex-end;
+  padding: 90px 8% 70px;
+  overflow: hidden;
+}
+
+.planeta-cabecera::before {
+  content: "";
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  top: -440px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: rgba(133,104,241,.14);
+  filter: blur(100px);
+}
+
+.planeta-cabecera-contenido {
+  position: relative;
+  z-index: 1;
+  max-width: 920px;
+}
+
+.planeta-migaja {
+  display: inline-block;
+  margin-bottom: 32px;
+  color: #777987;
+  font-size: 11px;
+  letter-spacing: 2px;
+  transition: color .2s ease;
+}
+
+.planeta-migaja:hover {
+  color: #fff;
+}
+
+.planeta-etiqueta {
+  display: block;
+  margin-bottom: 16px;
+  color: #a99adb;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 4px;
+}
+
+.planeta-cabecera h1 {
+  margin: 0 0 20px;
+  font-size: clamp(64px, 9vw, 120px);
+  line-height: .9;
+  letter-spacing: -6px;
+}
+
+.planeta-cabecera p {
+  max-width: 650px;
+  color: #9496a2;
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.planeta-articulo {
+  max-width: 1250px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(330px, .75fr);
+  gap: 70px;
+  margin: 0 auto;
+  padding: 110px 30px 100px;
+}
+
+.planeta-contenido {
+  padding-top: 10px;
+}
+
+.mini-etiqueta {
+  display: inline-block;
+  color: #a99adb;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 4px;
+}
+
+.planeta-contenido h2 {
+  max-width: 730px;
+  margin: 18px 0 38px;
+  font-size: clamp(40px, 5vw, 66px);
+  line-height: .98;
+  letter-spacing: -3px;
+}
+
+.planeta-contenido h2 span {
+  color: #bcaeff;
+}
+
+.planeta-descripcion {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.planeta-descripcion p {
+  color: #9294a0;
+  font-size: 16px;
+  line-height: 1.95;
+}
+
+.planeta-ficha {
+  position: sticky;
+  top: 105px;
+  height: fit-content;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.045),
+      rgba(255,255,255,.015)
+    );
+  box-shadow:
+    0 30px 70px rgba(0,0,0,.28);
+}
+
+.planeta-ficha-imagen {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+  background: #0a0b12;
+}
+
+.planeta-ficha-imagen img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.planeta-imagen-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: rgba(255,255,255,.7);
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.planeta-ficha-overlay {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  padding: 8px 11px;
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 999px;
+  background: rgba(5,6,11,.65);
+  backdrop-filter: blur(12px);
+}
+
+.planeta-ficha-overlay span {
+  color: #e8e6ef;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.planeta-ficha-contenido {
+  padding: 30px;
+}
+
+.planeta-ficha-contenido h2 {
+  margin-bottom: 24px;
+  font-size: 28px;
+  letter-spacing: -1px;
+}
+
+.planeta-ficha-lista {
+  display: flex;
+  flex-direction: column;
+}
+
+.planeta-ficha-lista > div {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 15px 0;
+  border-top: 1px solid rgba(255,255,255,.065);
+}
+
+.planeta-ficha-lista span {
+  color: #71737f;
+  font-size: 12px;
+}
+
+.planeta-ficha-lista strong {
+  max-width: 180px;
+  color: #e7e6ed;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: right;
+  line-height: 1.45;
+}
+
+.planeta-contexto {
+  position: relative;
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 75px 30px 90px;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+
+.planeta-contexto-linea {
+  position: absolute;
+  top: -1px;
+  left: 30px;
+  width: 120px;
+  height: 1px;
+  background: #9c88d5;
+}
+
+.planeta-contexto h2 {
+  max-width: 800px;
+  margin: 18px 0;
+  font-size: clamp(36px, 4.5vw, 58px);
+  line-height: 1;
+  letter-spacing: -3px;
+}
+
+.planeta-contexto p {
+  max-width: 680px;
+  color: #81838f;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.planeta-simuladores {
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 30px 30px 120px;
+}
+
+.planeta-simuladores-titulo {
+  margin-bottom: 42px;
+}
+
+.planeta-simuladores-titulo h2 {
+  margin: 16px 0 14px;
+  font-size: clamp(40px, 5vw, 64px);
+  letter-spacing: -3px;
+}
+
+.planeta-simuladores-titulo h2 span {
+  color: #bcaeff;
+}
+
+.planeta-simuladores-titulo p {
+  max-width: 600px;
+  color: #7e808c;
+  line-height: 1.8;
+}
+
+.simuladores-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch;
+}
+
+@media (max-width: 1000px) {
+  .planeta-articulo {
+    grid-template-columns: 1fr;
+    gap: 55px;
+  }
+
+  .planeta-ficha {
+    position: relative;
+    top: 0;
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 800px) {
+  .simuladores-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 650px) {
+  .planeta-cabecera {
+    min-height: 360px;
+    padding: 70px 7% 55px;
+  }
+
+  .planeta-cabecera h1 {
+    font-size: clamp(54px, 16vw, 82px);
+    letter-spacing: -4px;
+  }
+
+  .planeta-articulo,
+  .planeta-contexto,
+  .planeta-simuladores {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .planeta-ficha-imagen {
+    height: 240px;
+  }
+
+  .planeta-contexto-linea {
+    left: 20px;
+  }
+}
