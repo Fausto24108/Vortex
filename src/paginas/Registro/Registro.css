@@ -1,0 +1,97 @@
+.pagina-auth {
+  min-height: calc(100vh - 78px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  background: radial-gradient(circle at top, rgba(120,90,220,.15), transparent 40%), #05060b;
+}
+
+.formulario-auth {
+  width: 100%;
+  max-width: 430px;
+  padding: 42px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  background: rgba(255,255,255,.035);
+  box-shadow: 0 25px 60px rgba(0,0,0,.35);
+}
+
+.auth-etiqueta {
+  color: #a896d8;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+}
+
+.formulario-auth h1 {
+  margin: 14px 0 10px;
+  font-size: 42px;
+  color: #fff;
+}
+
+.formulario-auth > p {
+  margin-bottom: 30px;
+  color: #8e909a;
+  line-height: 1.6;
+}
+
+.formulario-auth form {
+  display: flex;
+  flex-direction: column;
+}
+
+.formulario-auth label {
+  margin-bottom: 8px;
+  color: #c4c5cc;
+  font-size: 13px;
+}
+
+.formulario-auth input {
+  margin-bottom: 20px;
+  padding: 13px 14px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 8px;
+  outline: none;
+  background: rgba(255,255,255,.04);
+  color: #fff;
+}
+
+.formulario-auth input:focus {
+  border-color: #a896d8;
+}
+
+.formulario-auth button[type="submit"] {
+  margin-top: 4px;
+  padding: 14px;
+  border: 0;
+  border-radius: 8px;
+  background: #f2efff;
+  color: #111018;
+  cursor: pointer;
+}
+
+.formulario-auth button[type="submit"]:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.auth-error {
+  margin-bottom: 18px;
+  padding: 12px;
+  border: 1px solid rgba(255,90,90,.25);
+  border-radius: 7px;
+  background: rgba(255,70,70,.08);
+  color: #ff9b9b;
+  font-size: 13px;
+}
+
+.auth-enlace {
+  margin-top: 24px;
+  text-align: center;
+  color: #777984;
+}
+
+.auth-enlace a {
+  color: #b69cff;
+}
