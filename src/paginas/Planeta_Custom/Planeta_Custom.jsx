@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-
 import Planeta_Render from '../../componentes/Planeta_Render'
 import Simulador_Salto from '../../componentes/Simulador_Salto'
 import Simulador_Lanzar from '../../componentes/Simulador_Lanzar'
-
 import './Planeta_Custom.css'
 
 const imagenes = import.meta.glob(
@@ -51,12 +49,27 @@ function Planeta_Custom() {
       setCargando(true)
       setError('')
 
+      const token =
+        localStorage.getItem('token')
+
+      if (!token) {
+        setError(
+          'No hay una sesión iniciada.'
+        )
+
+        setCargando(false)
+        return
+      }
+
       try {
         const response =
           await fetch(
             `http://localhost:3001/api/custom-planets/${id}`,
             {
-              credentials: 'include'
+              headers: {
+                Authorization:
+                  `Bearer ${token}`
+              }
             }
           )
 
@@ -139,111 +152,79 @@ function Planeta_Custom() {
             ← PLANETAS DE LA COMUNIDAD
           </Link>
 
-          <span className="mini-etiqueta">
-            MUNDO PERSONALIZADO
-          </span>
+          <div className="custom-datos-layout">
+            <div className="custom-texto">
+              <h1>
+                {planeta.nombre}
+              </h1>
 
-          <h1>
-            {planeta.nombre}
-          </h1>
+              <p>
+                {planeta.descripcion}
+              </p>
+            </div>
 
-          <p>
-            {planeta.descripcion}
-          </p>
-        </div>
+            <aside className="custom-ficha">
+              <div className="custom-ficha-imagen">
+                <Planeta_Render
+                  tipo={planeta.tipo}
+                  color={planeta.color}
+                  tamano={
+                    planeta.tamano
+                  }
+                  diametro={
+                    planeta.diametro
+                  }
+                />
+              </div>
 
-        <div className="custom-planeta-hero">
-          <Planeta_Render
-            tipo={planeta.tipo}
-            color={planeta.color}
-            tamano={
-              planeta.tamano
-            }
-            diametro={
-              planeta.diametro
-            }
-          />
-        </div>
-      </section>
+              <div className="custom-ficha-datos">
+                <div>
+                  <span>
+                    Tipo
+                  </span>
 
-      <section className="custom-info">
-        <article className="custom-descripcion">
-          <span className="mini-etiqueta">
-            SOBRE ESTE MUNDO
-          </span>
+                  <strong>
+                    {planeta.tipo}
+                  </strong>
+                </div>
 
-          <h2>
-            Un planeta creado
-            <span>
-              por la comunidad.
-            </span>
-          </h2>
+                <div>
+                  <span>
+                    Color
+                  </span>
 
-          <p>
-            {planeta.descripcion}
-          </p>
-        </article>
+                  <strong>
+                    {planeta.color}
+                  </strong>
+                </div>
 
-        <aside className="custom-ficha">
-          <div className="custom-ficha-imagen">
-            <Planeta_Render
-              tipo={planeta.tipo}
-              color={planeta.color}
-              tamano={
-                planeta.tamano
-              }
-              diametro={
-                planeta.diametro
-              }
-            />
+                <div>
+                  <span>
+                    Gravedad
+                  </span>
+
+                  <strong>
+                    {planeta.gravedad} m/s²
+                  </strong>
+                </div>
+
+                <div>
+                  <span>
+                    Diámetro
+                  </span>
+
+                  <strong>
+                    {Number(
+                      planeta.diametro
+                    ).toLocaleString(
+                      'es-AR'
+                    )} km
+                  </strong>
+                </div>
+              </div>
+            </aside>
           </div>
-
-          <div className="custom-ficha-datos">
-            <div>
-              <span>
-                Tipo
-              </span>
-
-              <strong>
-                {planeta.tipo}
-              </strong>
-            </div>
-
-            <div>
-              <span>
-                Color
-              </span>
-
-              <strong>
-                {planeta.color}
-              </strong>
-            </div>
-
-            <div>
-              <span>
-                Gravedad
-              </span>
-
-              <strong>
-                {planeta.gravedad} m/s²
-              </strong>
-            </div>
-
-            <div>
-              <span>
-                Diámetro
-              </span>
-
-              <strong>
-                {Number(
-                  planeta.diametro
-                ).toLocaleString(
-                  'es-AR'
-                )} km
-              </strong>
-            </div>
-          </div>
-        </aside>
+        </div>
       </section>
 
       <section className="custom-simuladores">

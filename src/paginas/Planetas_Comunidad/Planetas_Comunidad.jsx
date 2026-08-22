@@ -13,30 +13,54 @@ function Planetas_Comunidad() {
     setCargando(true)
     setError('')
 
+    const token =
+      localStorage.getItem('token')
+
+    if (!token) {
+      setError(
+        'No hay una sesión iniciada.'
+      )
+
+      setCargando(false)
+      return
+    }
+
     try {
-      const [
-        respuestaPublicos,
-        respuestaMios
-      ] = await Promise.all([
-        fetch(
-          'http://localhost:3001/api/custom-planets/public',
-          {
-            credentials: 'include'
-          }
-        ),
-        fetch(
-          'http://localhost:3001/api/custom-planets/mine',
-          {
-            credentials: 'include'
-          }
-        )
-      ])
+      const [respuestaPublicos, respuestaMios] =
+        await Promise.all([
+          fetch(
+            'http://localhost:3001/api/custom-planets/public',
+            {
+              headers: {
+                Authorization:
+                  `Bearer ${token}`
+              }
+            }
+          ),
+          fetch(
+            'http://localhost:3001/api/custom-planets/mine',
+            {
+              headers: {
+                Authorization:
+                  `Bearer ${token}`
+              }
+            }
+          )
+        ])
 
       if (
         !respuestaPublicos.ok ||
         !respuestaMios.ok
       ) {
+        const errorPublicos =
+          await respuestaPublicos.json()
+
+        const errorMios =
+          await respuestaMios.json()
+
         throw new Error(
+          errorPublicos.mensaje ||
+          errorMios.mensaje ||
           'No se pudieron cargar los planetas'
         )
       }
@@ -54,8 +78,9 @@ function Planetas_Comunidad() {
       setMios(
         datosMios.planetas || []
       )
-    } catch {
+    } catch (error) {
       setError(
+        error.message ||
         'No se pudieron cargar los planetas.'
       )
     } finally {

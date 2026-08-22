@@ -15,7 +15,8 @@ const client =
 
 app.use(
   cors({
-    origin: 'http://localhost:5173'
+    origin: 'http://localhost:5173',
+    credentials: true
   })
 )
 
@@ -25,6 +26,7 @@ app.use(
 
 let users
 let planets
+let customPlanets
 
 function crearToken(usuario) {
   return jwt.sign(
@@ -151,6 +153,346 @@ app.get(
 )
 
 /* =====================================
+   CUSTOM PLANETS
+===================================== */
+
+app.post(
+  '/api/custom-planets',
+  autenticar,
+  async (req, res) => {
+    try {
+      const {
+        nombre,
+        descripcion,
+        tipo,
+        color,
+        tamano,
+        gravedad,
+        diametro
+      } = req.body
+
+      if (
+        !nombre ||
+        !descripcion ||
+        !tipo ||
+        !color ||
+        !tamano ||
+        gravedad === undefined ||
+        diametro === undefined
+      ) {
+        return res
+          .status(400)
+          .json({
+            mensaje:
+              'Todos los campos del planeta son obligatorios'
+          })
+      }
+
+      const tiposPermitidos = [
+        'rocoso',
+        'gaseoso',
+        'gigante-helado'
+      ]
+
+      const coloresPermitidos = [
+        'rojo',
+        'naranja',
+        'amarillo',
+        'verde',
+        'azul',
+        'celeste',
+        'violeta',
+        'gris'
+      ]
+
+      const tamañosPermitidos = [
+        'pequeño',
+        'mediano',
+        'grande',
+        'gigante'
+      ]
+
+      const gravedadesPermitidas = [
+        1.6,
+        3.2,
+        6.4,
+        9.8,
+        18.5
+      ]
+
+      const diametrosPermitidos = [
+        5000,
+        10000,
+        20000,
+        60000
+      ]
+
+      if (
+        !tiposPermitidos.includes(
+          tipo
+        )
+      ) {
+        return res
+          .status(400)
+          .json({
+            mensaje:
+              'Tipo de planeta inválido'
+          })
+      }
+
+      if (
+        !coloresPermitidos.includes(
+          color
+        )
+      ) {
+        return res
+          .status(400)
+          .json({
+            mensaje:
+              'Color de planeta inválido'
+          })
+      }
+
+      if (
+        !tamañosPermitidos.includes(
+          tamano
+        )
+      ) {
+        return res
+          .status(400)
+          .json({
+            mensaje:
+              'Tamaño de planeta inválido'
+          })
+      }
+
+      if (
+        !gravedadesPermitidas.includes(
+          Number(gravedad)
+        )
+      ) {
+        return res
+          .status(400)
+          .json({
+            mensaje:
+              'Gravedad inválida'
+          })
+      }
+
+      if (
+        !diametrosPermitidos.includes(
+          Number(diametro)
+        )
+      ) {
+        return res
+          .status(400)
+          .json({
+            mensaje:
+              'Diámetro inválido'
+          })
+      }
+
+      const nuevoPlaneta = {
+        user_id:
+          req.usuario._id,
+
+        creador: {
+          id:
+            req.usuario._id.toString(),
+
+          nombre:
+            req.usuario.nombre
+        },
+
+        nombre:
+          nombre.trim(),
+
+        descripcion:
+          descripcion.trim(),
+
+        tipo,
+
+        color,
+
+        tamano,
+
+        gravedad:
+          Number(gravedad),
+
+        diametro:
+          Number(diametro),
+
+        publico:
+          true,
+
+        fechaCreacion:
+          new Date()
+      }
+
+      const resultado =
+        await customPlanets.insertOne(
+          nuevoPlaneta
+        )
+
+      const planetaCreado = {
+        _id:
+          resultado.insertedId,
+
+        ...nuevoPlaneta
+      }
+
+      res
+        .status(201)
+        .json({
+          mensaje:
+            'Planeta creado correctamente',
+
+          planeta:
+            planetaCreado
+        })
+    } catch (error) {
+      console.error(error)
+
+      res
+        .status(500)
+        .json({
+          mensaje:
+            'Error interno del servidor'
+        })
+    }
+  }
+)
+
+app.get(
+  '/api/custom-planets/public',
+  async (req, res) => {
+    try {
+      const planetas =
+        await customPlanets
+          .find({
+            publico: true
+          })
+          .sort({
+            fechaCreacion: -1
+          })
+          .toArray()
+
+      res.json({
+        planetas
+      })
+    } catch (error) {
+      console.error(error)
+
+      res
+        .status(500)
+        .json({
+          mensaje:
+            'No se pudieron cargar los planetas públicos'
+        })
+    }
+  }
+)
+
+app.get(
+  '/api/custom-planets/mine',
+  autenticar,
+  async (req, res) => {
+    try {
+      const planetas =
+        await customPlanets
+          .find({
+            user_id:
+              req.usuario._id
+          })
+          .sort({
+            fechaCreacion: -1
+          })
+          .toArray()
+
+      res.json({
+        planetas
+      })
+    } catch (error) {
+      console.error(error)
+
+      res
+        .status(500)
+        .json({
+          mensaje:
+            'No se pudieron cargar tus planetas'
+        })
+    }
+  }
+)
+
+app.get(
+  '/api/custom-planets/:id',
+  autenticar,
+  async (req, res) => {
+    try {
+      const id =
+        req.params.id
+
+      if (
+        !ObjectId.isValid(id)
+      ) {
+        return res
+          .status(400)
+          .json({
+            mensaje:
+              'ID de planeta inválido'
+          })
+      }
+
+      const planeta =
+        await customPlanets.findOne({
+          _id:
+            new ObjectId(id)
+        })
+
+      if (!planeta) {
+        return res
+          .status(404)
+          .json({
+            mensaje:
+              'Planeta no encontrado'
+          })
+      }
+
+      const esPropietario =
+        planeta.user_id &&
+        planeta.user_id.toString() ===
+          req.usuario._id.toString()
+
+      if (
+        !planeta.publico &&
+        !esPropietario
+      ) {
+        return res
+          .status(403)
+          .json({
+            mensaje:
+              'No tenés permiso para ver este planeta'
+          })
+      }
+
+      res.json({
+        planeta
+      })
+    } catch (error) {
+      console.error(error)
+
+      res
+        .status(500)
+        .json({
+          mensaje:
+            'No se pudo cargar el planeta'
+        })
+    }
+  }
+)
+
+/* =====================================
    REGISTRO
 ===================================== */
 
@@ -242,6 +584,7 @@ app.post(
       const usuarioCreado = {
         _id:
           resultado.insertedId,
+
         ...nuevoUsuario
       }
 
@@ -439,12 +782,30 @@ async function iniciarServidor() {
         'planets'
       )
 
+    customPlanets =
+      db.collection(
+        'custom_planets'
+      )
+
     await users.createIndex(
       {
         email: 1
       },
       {
         unique: true
+      }
+    )
+
+    await customPlanets.createIndex(
+      {
+        user_id: 1
+      }
+    )
+
+    await customPlanets.createIndex(
+      {
+        publico: 1,
+        fechaCreacion: -1
       }
     )
 

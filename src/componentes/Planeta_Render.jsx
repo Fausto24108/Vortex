@@ -44,10 +44,10 @@ const colores = {
 }
 
 const tamaños = {
-  pequeño: 150,
-  mediano: 210,
-  grande: 280,
-  gigante: 360
+  pequeño: 120,
+  mediano: 160,
+  grande: 210,
+  gigante: 280
 }
 
 const tamañosPorDiametro = {
@@ -91,9 +91,7 @@ function Planeta_Render({
         className={`planeta-esfera planeta-tipo-${tipo}`}
       >
         <div className="planeta-atmosfera"></div>
-
         <div className="planeta-textura"></div>
-
         <div className="planeta-detalles"></div>
 
         {tipo === 'gaseoso' && (
@@ -109,7 +107,6 @@ function Planeta_Render({
         )}
 
         <div className="planeta-iluminacion"></div>
-
         <div className="planeta-sombra"></div>
       </div>
     </div>
