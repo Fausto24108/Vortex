@@ -1,121 +1,116 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import './App.css'
+import videoEspacio from './assets/videos/VideoEspacio.mp4'
+import logoVortex from './assets/iconos/LogoVortex.png'
+import sistemaSolarIcono from './assets/iconos/Sistema_Solar_Icono.png'
+import universoIcono from './assets/iconos/Universo_Icono.png'
+import crearPlanetaIcono from './assets/iconos/Crear_Planeta_Icono.png'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div className="app">
+      <header className="navbar">
+        <a href="#" className="logo">
+          <img src={logoVortex} alt="Vortex" />
+        </a>
+
+        <nav className="nav-links">
+          <a href="#" className="active">Inicio</a>
+          <a href="#">Sistema Solar</a>
+          <a href="#">Universo</a>
+          <a href="#">Crea tu planeta</a>
+          <a href="#">Comunidad</a>
+        </nav>
+
+        <div className="nav-actions">
+          <a href="#" className="login">Iniciar sesión</a>
+          <a href="#" className="register">Registrarse</a>
         </div>
-        <div>
-          <h1>Get started</h1>
+      </header>
+
+      <main>
+        <section className="seccion-principal">
+          <video
+            className="seccion-principal-video"
+            src={videoEspacio}
+            autoPlay
+            muted
+            loop
+            playsInline
+          />
+
+          <div className="seccion-principal-overlay"></div>
+
+          <div className="seccion-principal-contenido">
+            <span className="seccion-principal-etiqueta">EXPLORA · DESCUBRE · CREA</span>
+
+            <h1>
+              <span className="seccion-principal-titulo">El universo</span>
+              <span className="seccion-principal-acento">está esperando</span>
+            </h1>
+
+            <p>
+              Descubrí los secretos del cosmos, explorá nuestro Sistema Solar y creá tus propios mundos.
+            </p>
+
+            <div className="seccion-principal-botones">
+              <a href="#" className="primary-button">
+                Explorar el universo <span>→</span>
+              </a>
+
+              <a href="#" className="secondary-button">
+                Crear mi planeta
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section className="intro">
+          <span className="section-label">BIENVENIDO A VORTEX</span>
+
+          <h2>Mucho más que mirar las estrellas.</h2>
+
           <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
+            Aprendé astronomía de una manera diferente. Interactuá con planetas, experimentá con la gravedad, descubrí fenómenos del universo y construí tus propios mundos.
           </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+        </section>
 
-      <div className="ticks"></div>
+        <section className="features">
+          <article className="feature-card">
+            <span className="feature-number">01</span>
+            <img className="feature-icon" src={sistemaSolarIcono} alt="Sistema Solar" />
+            <h3>Sistema Solar</h3>
+            <p>Conocé nuestros planetas y experimentá con sus propiedades físicas.</p>
+            <a href="#">Explorar →</a>
+          </article>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+          <article className="feature-card">
+            <span className="feature-number">02</span>
+            <img className="feature-icon" src={universoIcono} alt="Universo" />
+            <h3>Explorá el universo</h3>
+            <p>Descubrí nebulosas, agujeros negros, galaxias y otros fenómenos cósmicos.</p>
+            <a href="#">Descubrir →</a>
+          </article>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+          <article className="feature-card">
+            <span className="feature-number">03</span>
+            <img className="feature-icon" src={crearPlanetaIcono} alt="Crear planeta" />
+            <h3>Creá tu planeta</h3>
+            <p>Diseñá tu propio mundo y compartilo con la comunidad de Vortex.</p>
+            <a href="#">Crear →</a>
+          </article>
+        </section>
+      </main>
+
+      <footer className="footer">
+        <div className="footer-logo">
+          <img src={logoVortex} alt="Vortex" />
+        </div>
+
+        <p>Explorando el universo</p>
+
+        <span className="footer-copy">©2026 Vortex</span>
+      </footer>
+    </div>
   )
 }
 
