@@ -1,0 +1,223 @@
+.planeta-render {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.planeta-esfera {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle at 31% 25%,
+      var(--color-luz) 0%,
+      var(--color-base) 42%,
+      var(--color-sombra) 100%
+    );
+  box-shadow:
+    inset -26px -18px 48px rgba(0,0,0,.54),
+    inset 18px 12px 30px rgba(255,255,255,.08),
+    0 30px 60px rgba(0,0,0,.35);
+}
+
+.planeta-atmosfera {
+  position: absolute;
+  inset: -4%;
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 0 3px rgba(255,255,255,.045);
+  pointer-events: none;
+}
+
+.planeta-textura,
+.planeta-detalles,
+.planeta-bandas,
+.planeta-capas-heladas,
+.planeta-crateres,
+.planeta-iluminacion,
+.planeta-sombra {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.planeta-textura {
+  opacity: .5;
+  background:
+    radial-gradient(
+      circle at 18% 24%,
+      rgba(255,255,255,.16) 0 2.5%,
+      transparent 3.5%
+    ),
+    radial-gradient(
+      circle at 72% 18%,
+      rgba(0,0,0,.18) 0 4%,
+      transparent 5%
+    ),
+    radial-gradient(
+      circle at 56% 67%,
+      rgba(255,255,255,.1) 0 3%,
+      transparent 4%
+    ),
+    radial-gradient(
+      circle at 82% 71%,
+      rgba(0,0,0,.14) 0 5%,
+      transparent 6%
+    ),
+    radial-gradient(
+      circle at 30% 77%,
+      rgba(255,255,255,.08) 0 4%,
+      transparent 5%
+    );
+  background-size:
+    135px 135px,
+    170px 170px,
+    150px 150px,
+    190px 190px,
+    180px 180px;
+  mix-blend-mode: soft-light;
+}
+
+.planeta-detalles {
+  opacity: .24;
+  background:
+    repeating-radial-gradient(
+      ellipse at 40% 42%,
+      transparent 0 8%,
+      rgba(255,255,255,.08) 8.5% 9.3%,
+      transparent 10% 15%
+    );
+  filter: blur(1px);
+}
+
+.planeta-crateres {
+  opacity: .42;
+  background:
+    radial-gradient(
+      ellipse at 24% 35%,
+      rgba(0,0,0,.28) 0 4%,
+      transparent 4.8%
+    ),
+    radial-gradient(
+      ellipse at 71% 31%,
+      rgba(0,0,0,.2) 0 5%,
+      transparent 5.8%
+    ),
+    radial-gradient(
+      ellipse at 52% 68%,
+      rgba(0,0,0,.22) 0 3.5%,
+      transparent 4.5%
+    ),
+    radial-gradient(
+      ellipse at 78% 72%,
+      rgba(255,255,255,.07) 0 2.5%,
+      transparent 3.5%
+    );
+  filter: blur(.35px);
+}
+
+.planeta-bandas {
+  opacity: .42;
+  transform: scale(1.08);
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,.02) 0 7%,
+      rgba(255,255,255,.12) 7% 10%,
+      rgba(0,0,0,.08) 10% 14%,
+      rgba(255,255,255,.025) 14% 19%
+    );
+  filter: blur(1px);
+}
+
+.planeta-bandas::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0 17%,
+      rgba(255,255,255,.08) 18% 20%,
+      transparent 21% 31%
+    );
+  transform: skewY(-2deg);
+  opacity: .6;
+}
+
+.planeta-capas-heladas {
+  opacity: .42;
+  background:
+    radial-gradient(
+      ellipse at 32% 24%,
+      rgba(255,255,255,.2) 0 7%,
+      transparent 14%
+    ),
+    repeating-linear-gradient(
+      166deg,
+      transparent 0 9%,
+      rgba(255,255,255,.16) 9.5% 11.5%,
+      transparent 12% 18%
+    ),
+    repeating-linear-gradient(
+      17deg,
+      transparent 0 13%,
+      rgba(220,248,255,.11) 13.5% 15.5%,
+      transparent 16% 24%
+    );
+  filter: blur(1.4px);
+  mix-blend-mode: screen;
+}
+
+.planeta-capas-heladas::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse at 48% 42%,
+      transparent 0 26%,
+      rgba(255,255,255,.12) 27% 29%,
+      transparent 30%
+    ),
+    radial-gradient(
+      ellipse at 62% 54%,
+      transparent 0 18%,
+      rgba(255,255,255,.08) 19% 21%,
+      transparent 22%
+    );
+  opacity: .55;
+}
+
+.planeta-iluminacion {
+  background:
+    radial-gradient(
+      circle at 28% 24%,
+      rgba(255,255,255,.28),
+      transparent 26%
+    );
+  mix-blend-mode: screen;
+}
+
+.planeta-sombra {
+  background:
+    linear-gradient(
+      112deg,
+      transparent 33%,
+      rgba(0,0,0,.08) 46%,
+      rgba(0,0,0,.22) 63%,
+      rgba(0,0,0,.58) 100%
+    );
+}
+
+@media (max-width: 700px) {
+  .planeta-render {
+    transform: scale(.85);
+  }
+}

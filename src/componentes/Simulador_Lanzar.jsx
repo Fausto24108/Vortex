@@ -35,7 +35,8 @@ function capitalizar(slug) {
 
 function Simulador_Lanzar({
   gravedad,
-  slug
+  slug,
+  fondoPersonalizado
 }) {
   const escenarioRef = useRef(null)
   const objetoRef = useRef(null)
@@ -63,12 +64,15 @@ function Simulador_Lanzar({
     useState('')
 
   const fondo =
+    fondoPersonalizado ||
     obtenerAsset(
       `${capitalizar(slug)}_Fondo`
     )
 
   const astronauta =
-    obtenerAsset('AstronautaIdle')
+    obtenerAsset(
+      'AstronautaIdle'
+    )
 
   const origen = {
     x: 155,
@@ -77,12 +81,14 @@ function Simulador_Lanzar({
 
   function obtenerPosicion(event) {
     const rect =
-      escenarioRef.current.getBoundingClientRect()
+      escenarioRef.current
+        .getBoundingClientRect()
 
     return {
       x:
         event.clientX -
         rect.left,
+
       y:
         event.clientY -
         rect.top
@@ -124,11 +130,17 @@ function Simulador_Lanzar({
     const longitud =
       Math.min(
         170,
-        Math.hypot(dx, dy)
+        Math.hypot(
+          dx,
+          dy
+        )
       )
 
     const angulo =
-      Math.atan2(dy, dx) *
+      Math.atan2(
+        dy,
+        dx
+      ) *
       (180 / Math.PI)
 
     setLinea({
@@ -157,7 +169,10 @@ function Simulador_Lanzar({
       origen.y
 
     const distancia =
-      Math.hypot(dx, dy)
+      Math.hypot(
+        dx,
+        dy
+      )
 
     setArrastrando(false)
 
@@ -169,7 +184,9 @@ function Simulador_Lanzar({
       angulo: 0
     })
 
-    if (distancia < 15) {
+    if (
+      distancia < 15
+    ) {
       return
     }
 
@@ -235,15 +252,6 @@ function Simulador_Lanzar({
         )
       }
 
-      if (
-        !data.trayectoria ||
-        data.trayectoria.length === 0
-      ) {
-        throw new Error(
-          'La trayectoria no contiene puntos'
-        )
-      }
-
       setResultado(data)
 
       animarTrayectoria(
@@ -274,7 +282,7 @@ function Simulador_Lanzar({
     )
   }
 
-  function obtenerPuntoInterpolado(
+  function obtenerPunto(
     trayectoria,
     tiempo
   ) {
@@ -285,7 +293,8 @@ function Simulador_Lanzar({
     }
 
     if (
-      tiempo <= trayectoria[0].tiempo
+      tiempo <=
+      trayectoria[0].tiempo
     ) {
       return trayectoria[0]
     }
@@ -296,7 +305,8 @@ function Simulador_Lanzar({
       ]
 
     if (
-      tiempo >= ultimo.tiempo
+      tiempo >=
+      ultimo.tiempo
     ) {
       return ultimo
     }
@@ -304,7 +314,7 @@ function Simulador_Lanzar({
     for (
       let i = 0;
       i <
-        trayectoria.length - 1;
+      trayectoria.length - 1;
       i += 1
     ) {
       const actual =
@@ -353,8 +363,9 @@ function Simulador_Lanzar({
     trayectoria
   ) {
     if (
+      !escenarioRef.current ||
       !objetoRef.current ||
-      trayectoria.length === 0
+      !trayectoria.length
     ) {
       return
     }
@@ -364,7 +375,8 @@ function Simulador_Lanzar({
     )
 
     const rect =
-      escenarioRef.current.getBoundingClientRect()
+      escenarioRef.current
+        .getBoundingClientRect()
 
     const anchoDisponible =
       rect.width - 170
@@ -375,14 +387,16 @@ function Simulador_Lanzar({
     const maxX =
       Math.max(
         ...trayectoria.map(
-          punto => Math.abs(punto.x)
+          punto =>
+            Math.abs(punto.x)
         )
       )
 
     const maxY =
       Math.max(
         ...trayectoria.map(
-          punto => Math.abs(punto.y)
+          punto =>
+            Math.abs(punto.y)
         )
       )
 
@@ -408,9 +422,6 @@ function Simulador_Lanzar({
         trayectoria.length - 1
       ].tiempo
 
-    const velocidadAnimacion =
-      1.6
-
     let inicio = null
 
     function frame(tiempoActual) {
@@ -422,15 +433,13 @@ function Simulador_Lanzar({
         (
           tiempoActual -
           inicio
-        ) /
-        1000
+        ) / 1000
 
       const tiempoFisico =
-        tiempoTranscurrido *
-        velocidadAnimacion
+        tiempoTranscurrido * 1.6
 
       const punto =
-        obtenerPuntoInterpolado(
+        obtenerPunto(
           trayectoria,
           tiempoFisico
         )
@@ -439,16 +448,10 @@ function Simulador_Lanzar({
         objetoRef.current &&
         punto
       ) {
-        const x =
-          punto.x * escala
-
-        const y =
-          punto.y * escala
-
         objetoRef.current.style.transform =
           `translate(
-            ${x}px,
-            ${-y}px
+            ${punto.x * escala}px,
+            ${-punto.y * escala}px
           )`
       }
 
@@ -460,22 +463,6 @@ function Simulador_Lanzar({
           requestAnimationFrame(
             frame
           )
-      } else if (
-        objetoRef.current
-      ) {
-        objetoRef.current.style.transform =
-          `translate(
-            ${
-              trayectoria[
-                trayectoria.length - 1
-              ].x * escala
-            }px,
-            ${
-              -trayectoria[
-                trayectoria.length - 1
-              ].y * escala
-            }px
-          )`
       }
     }
 
@@ -490,7 +477,9 @@ function Simulador_Lanzar({
       animacionRef.current
     )
 
-    if (objetoRef.current) {
+    if (
+      objetoRef.current
+    ) {
       objetoRef.current.style.transform =
         'translate(0px, 0px)'
     }

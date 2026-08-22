@@ -1,0 +1,274 @@
+.pagina-planeta-custom {
+  min-height: 100vh;
+  padding-bottom: 120px;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(125,98,220,.12),
+      transparent 34%
+    ),
+    #05060b;
+  color: #fff;
+}
+
+.estado-custom {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  color: #858895;
+}
+
+.estado-custom a {
+  color: #bcaeff;
+  text-decoration: none;
+}
+
+.estado-custom p {
+  max-width: 500px;
+  margin: 0;
+  text-align: center;
+}
+
+.custom-hero {
+  position: relative;
+  min-height: 640px;
+  overflow: hidden;
+}
+
+.custom-hero-fondo {
+  position: absolute;
+  inset: 0;
+}
+
+.custom-hero-fondo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.custom-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(5,6,11,.12),
+      rgba(5,6,11,.28) 45%,
+      #05060b 100%
+    );
+}
+
+.custom-hero-contenido {
+  position: relative;
+  z-index: 2;
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 90px 30px 80px;
+}
+
+.custom-volver {
+  display: inline-block;
+  margin-bottom: 40px;
+  color: #777987;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-decoration: none;
+}
+
+.custom-volver:hover {
+  color: #bcaeff;
+}
+
+.mini-etiqueta {
+  display: inline-block;
+  color: #a99adb;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 4px;
+}
+
+.custom-datos-layout {
+  display: grid;
+  grid-template-columns:
+    minmax(0,1fr)
+    370px;
+  gap: 90px;
+  align-items: center;
+  margin-top: 22px;
+}
+
+.custom-texto {
+  max-width: 720px;
+  align-self: start;
+  padding-top: 25px;
+}
+
+.custom-texto h1 {
+  margin: 0 0 26px;
+  font-size: clamp(56px, 8vw, 104px);
+  line-height: .92;
+  letter-spacing: -6px;
+}
+
+.custom-texto p {
+  max-width: 680px;
+  margin: 0;
+  color: #a0a2ad;
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+.custom-ficha {
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 20px;
+  background:
+    rgba(5,6,11,.48);
+  backdrop-filter:
+    blur(12px);
+  box-shadow:
+    0 30px 70px rgba(0,0,0,.28);
+}
+
+.custom-ficha-imagen {
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(130,110,220,.12),
+      transparent 67%
+    );
+}
+
+.custom-ficha-datos {
+  display: grid;
+  grid-template-columns:
+    1fr 1fr;
+  border-top:
+    1px solid
+    rgba(255,255,255,.06);
+}
+
+.custom-ficha-datos > div {
+  padding: 18px;
+  border-right:
+    1px solid
+    rgba(255,255,255,.045);
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.045);
+}
+
+.custom-ficha-datos > div:nth-child(even) {
+  border-right: 0;
+}
+
+.custom-ficha-datos span {
+  display: block;
+  margin-bottom: 6px;
+  color: #676a77;
+  font-size: 9px;
+}
+
+.custom-ficha-datos strong {
+  color: #dedbe5;
+  font-size: 12px;
+  text-transform: capitalize;
+}
+
+.custom-simuladores {
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 90px 30px 0;
+  border-top:
+    1px solid
+    rgba(255,255,255,.055);
+}
+
+.custom-simuladores-cabecera {
+  max-width: 700px;
+  margin-bottom: 45px;
+}
+
+.custom-simuladores-cabecera h2 {
+  margin: 18px 0;
+  font-size:
+    clamp(
+      38px,
+      4.5vw,
+      60px
+    );
+  line-height: 1;
+  letter-spacing: -3px;
+}
+
+.custom-simuladores-cabecera h2 span {
+  color: #bcaeff;
+}
+
+.custom-simuladores-cabecera p {
+  margin: 0;
+  color: #858793;
+  line-height: 1.8;
+}
+
+.custom-simuladores-grid {
+  display: grid;
+  grid-template-columns:
+    1fr 1fr;
+  gap: 18px;
+}
+
+@media (max-width: 1000px) {
+  .custom-datos-layout {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+
+  .custom-ficha {
+    width: min(
+      100%,
+      430px
+    );
+  }
+}
+
+@media (max-width: 800px) {
+  .custom-simuladores-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .custom-hero {
+    min-height: auto;
+  }
+
+  .custom-hero-contenido {
+    padding:
+      70px
+      20px
+      70px;
+  }
+
+  .custom-datos-layout {
+    gap: 35px;
+  }
+
+  .custom-texto h1 {
+    font-size: 54px;
+    letter-spacing: -4px;
+  }
+
+  .custom-simuladores {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
