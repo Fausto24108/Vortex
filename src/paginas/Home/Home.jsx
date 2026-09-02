@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import videoEspacio from '../../assets/videos/VideoEspacio.mp4'
 import sistemaSolarIcono from '../../assets/iconos/Sistema_Solar_Icono.png'
 import universoIcono from '../../assets/iconos/Universo_Icono.png'
@@ -48,12 +49,12 @@ function Home() {
               <span>→</span>
             </a>
 
-            <a
-              href="#"
+            <Link
+              to="/planetas-comunidad"
               className="secondary-button"
             >
               Crear mi planeta
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -92,10 +93,6 @@ function Home() {
             Conocé nuestros planetas y experimentá con sus propiedades
             físicas.
           </p>
-
-          <a href="#">
-            Explorar →
-          </a>
         </article>
 
         <article className="feature-card">
@@ -115,10 +112,6 @@ function Home() {
             Descubrí nebulosas, agujeros negros, galaxias y otros fenómenos
             cósmicos.
           </p>
-
-          <a href="#">
-            Descubrir →
-          </a>
         </article>
 
         <article className="feature-card">
@@ -137,10 +130,6 @@ function Home() {
           <p>
             Diseñá tu propio mundo y compartilo con la comunidad de Vortex.
           </p>
-
-          <a href="#">
-            Crear →
-          </a>
         </article>
       </section>
     </main>
